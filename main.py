@@ -4,46 +4,39 @@ from tkinter import messagebox
 from os import system
 
 class Main_Window(Frame):
-    def __init__(self, master=None):
+    def __init__(self, master=None, widget):
         Frame.__init__(self, master)
+        self.widget = widget
         self.master = master
         self.logIn()
-        self.windowBody()
+        if (widget == "main_widget"):
+            self.main_widget
+        if(widget == "update_widget"):
+            self.update_widget
 
-    def windowBody(self):
-        Button(self, text = "Führe eine Systemaktualisierung durch", command = self.open_sub_window())
+    def main_widget(self):
+        pass
+    def update_widget(self):
+        pass
 
-    def open_sub_window(self):
-        update_root = Tk()
-        update_root.title = "Systemaktualierung"
-        sub_Window(update_root)
-        update_root.mainloop()
+widget = "main_widget"
+root = Tk()
+root.geometry("300x200")
+def run_app(root, widget):
+    login = logIn()
+    if(widget == "main_widget"):
+        root.title("Linux Optimization Algorithm")
+        app = Main_Window(root, "main_widget")
+    if (widget == "update_widget"):
+        root.title("Aktualisierung des Systems")
+        app = Main_Window(root, "update_widget")
 
-    def logIn(self):
+    def logIn():
         try:
             subprocess.check_call(["sudo", "-S", "apt", "install", "mc", "-y"])
         except subprocess.CalledProcessError:
             print("Failed")
         #    messagebox.askokcancel.showinfo("message", "OOOOPS...\nWrong password!")
-        #else:
-         #   messagebox.askokcancel.showinfo("message", "Login successful!")
-
-    def update_sys(self):
-        system("apt clear")
-        system("apt update")
-        system("apt upgrade")
-
-class sub_Window(Frame):
-    def __init__(self):
-        self.body_window()
-
-    def body_window(self):
-        label = Label(Frame, text = "Dein System wird aktualisiert, dies kann einige Zeit in Anspruch nehmen")
-
-
-
-root = Tk()
-root.geometry("300x200")
-root.title("Linux Optimization Algorithm")
-app = Main_Window(root)
+        # else:
+        #   messagebox.askokcancel.showinfo("message", "Login successful!")
 root.mainloop()
