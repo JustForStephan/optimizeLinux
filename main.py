@@ -26,14 +26,14 @@ class another_widget:
 class main_widget():
 
     def actualize_sys(self):
-        main_widget()
+        update_widget()
 
     def __init__(self):
 
         root = tk.Tk()
         root.title("Linux_Optimizer")
         label = tk.Label(root, text="Willkommen beim Linux_Optimizer")
-        button1 = tk.Button(root, text="Aktualisiere dein System", command = self.actualize_sys())
+        button1 = tk.Button(root, text="Aktualisiere dein System", command = lambda: self.actualize_sys())
         button2 = tk.Button(root, text="Erneuere deinen App-Speicher")
         button3 = tk.Button(root, text="Mach doch was zu willst")
         window_elements = [label, button1, button2, button3]
