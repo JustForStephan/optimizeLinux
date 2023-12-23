@@ -2,7 +2,6 @@ import tkinter as tk
 import subprocess
 import os
 
-''''''
 class update_widget():
 
     def update_sys(self):
@@ -25,31 +24,38 @@ class update_widget():
         root_update.mainloop()
 
 
-class another_widget:
-    pass
-
-
+class Restart_wlan():
+    clicked = False
+    def restart(self):
+        os.system("sudo /etc/init.d/networking restart")
+        self.clicked = True
+    def __init__(self):
+        root_wlan = tk.Tk()
+        root_wlan.title("Neustart des WLANs")
+        label1 = tk.Label(root_wlan, text = "Wollen Sie das WLAN neustarten?")
+        button = tk.Button(root_wlan, text = "Ja", command = lambda: self.restart())
+        window_elements = [label1, button]
+        for i in window_elements:
+            i.pack()
+        if (self.clicked == True):
+            label2 = tk.Label(root_wlan, text = "Das WLAN wurde neugestartet!")
+            label2.pack()
+        root_wlan.mainloop()
 
 class main_widget():
 
     def actualize_sys(self):
         update_widget()
-
-    def login(self):
-        try:
-            subprocess.check_call(["sudo", "-S", "apt", "install", "mc", "-y"])
-        except subprocess.CalledProcessError:
-            print("Failed")
+    def restart_wlan(self):
+       Restart_wlan()
 
     def __init__(self):
-        self.login()
         root = tk.Tk()
         root.title("Linux_Optimizer")
         label = tk.Label(root, text="Willkommen beim Linux_Optimizer")
         button1 = tk.Button(root, text="Aktualisiere dein System", command = lambda: self.actualize_sys())
-        button2 = tk.Button(root, text="Erneuere deinen App-Speicher")
-        button3 = tk.Button(root, text="Mach doch was zu willst")
-        window_elements = [label, button1, button2, button3]
+        button2 = tk.Button(root, text="Starte dein WLAN neu", command = lambda: self.restart_wlan())
+        window_elements = [label, button1, button2]
         for i in window_elements:
             i.pack()
         root.mainloop()
