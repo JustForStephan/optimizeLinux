@@ -29,17 +29,21 @@ class Restart_wlan():
     def restart(self):
         os.system("sudo /etc/init.d/networking restart")
         self.clicked = True
+        self.__init__()
+
     def __init__(self):
         root_wlan = tk.Tk()
         root_wlan.title("Neustart des WLANs")
         label1 = tk.Label(root_wlan, text = "Wollen Sie das WLAN neustarten?")
         button = tk.Button(root_wlan, text = "Ja", command = lambda: self.restart())
         window_elements = [label1, button]
-        for i in window_elements:
-            i.pack()
-        if (self.clicked == True):
-            label2 = tk.Label(root_wlan, text = "Das WLAN wurde neugestartet!")
+        if self.clicked == True:
+            label2 = tk.Label(root_wlan, text = "Das WLAN wurde neu gestartet!")
             label2.pack()
+        else:
+            for i in window_elements:
+                i.pack()
+
         root_wlan.mainloop()
 
 class main_widget():
